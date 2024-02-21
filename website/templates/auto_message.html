@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} ZapSelling {% endblock %} 
+
+{% block content %} 
+    <h1>Lista de Arquivos</h1>
+    <ul>
+        {% for arquivo in arquivos %}
+            {% if current_user.is_authenticated and arquivo.user_id == current_user.id %}
+                <li>
+                    <a href="{{ url_for('views.visualizar_arquivo', arquivo_id=arquivo.id) }}">{{ arquivo.nome }}</a>
+                    <form action="{{ url_for('views.delete_arquivo', id=arquivo.id) }}" method="post">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <h1>Upload de Arquivos</h1>
+    <form action="{{ url_for('views.upload_file') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="file">
+        <input type="submit" value="Enviar">
+    </form>
+{% endblock %}

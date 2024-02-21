@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Minhas Mensagens {% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excluir Conta</title>
+</head>
+<body>
+    <h1>Tem certeza de que deseja excluir sua conta?</h1>
+    <form action="{{ url_for('views.excluir_conta') }}" method="post">
+        <input type="submit" value="Confirmar Exclusão">
+    </form>
+</body>
+</html>
+
+{% endblock %}

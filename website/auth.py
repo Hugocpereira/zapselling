@@ -1,8 +1,10 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, session
 from . import db
 from .models import User
 from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from .views import set_temporary_garbage, get_temporary_garbage
+
 
 
 auth = Blueprint('auth', __name__)
@@ -33,6 +35,7 @@ def signup():
         nome = request.form.get('nome')
         senha1= request.form.get('senha1')
         senha2 = request.form.get('senha2')
+        telefone = request.form.get('telefone')
         
         email_exists = User.query.filter_by(email=email).first()
         nome_exists = User.query.filter_by(nome=nome).first()
@@ -47,7 +50,7 @@ def signup():
         elif len(senha1) < 6:
             flash('Senha muito curta.', category='error')
         else:
-            new_user = User(email=email, nome=nome, senha1 = generate_password_hash(senha1, method='pbkdf2:sha256'))
+            new_user = User(email=email, nome=nome, telefone=telefone,senha1 = generate_password_hash(senha1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -63,3 +66,20 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
+
+@auth.route('/exemplo', methods=['POST'])
+def exemplo():
+    # Define o lixo temporário
+    set_temporary_garbage()
+
+    # Redireciona para outra rota
+    return redirect(url_for('views.home'))
+
+@auth.route('/exemplo2')
+def exemplo2():
+    # Obtém todos os lixos temporários armazenados na sessão
+    garbage_list = session.get('temporary_garbage_list', [])
+    
+    # Renderiza o template HTML e passa a lista de lixos temporários
+    return render_template('lixo.html', garbage_list=garbage_list)
+ 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Funil{% endblock %}
+{% block content %}
+
+<h1>Funil</h1>
+
+<form action="{{ url_for('views.funil') }}" method="post" enctype="multipart/form-data">
+    <label for="conteudo">Conteúdo:</label>
+    <textarea name="conteudo" id="conteudo" required></textarea>
+    <label for="arquivo">Arquivo:</label>
+    <select name="arquivo" id="arquivo">
+        <option value="">Selecione um arquivo</option>
+        {% for arquivo in arquivos %}
+        <option value="{{ arquivo.id }}">{{ arquivo.nome }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" name="enviar" value="Enviar">
+    <input type="submit" name="salvar" value="Salvar">
+</form>
+
+<h2>Mensagens Salvas</h2>
+<ul>
+    {% for mensagem in mensagens %}
+    <li>{{ mensagem.conteudo }}
+        <form action="{{ url_for('views.funil') }}" method="post">
+            <input type="hidden" name="mensagem_id" value="{{ mensagem.id }}">
+            <input type="submit" name="excluir" value="Excluir">
+        </form>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

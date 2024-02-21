@@ -1,0 +1,16 @@
+{% extends 'base.html' %} 
+{% block title %} ZapSelling {% endblock %} 
+{% block content %} 
+
+<form action="{{ url_for('views.lixo_temporario') }}" method="post">
+    <label for="garbage">Selecione o lixo temporário:</label>
+    <select name="garbage" id="garbage">
+        {% for item in garbage_list %}
+        <option value="{{ item.id }}">{{ item.nome }}</option>
+        {% endfor %}
+    </select>
+    <input type="hidden" name="item_type" id="item_type" value="arquivo"> 
+    <button type="submit">Resgatar</button>
+</form>
+
+{% endblock %}

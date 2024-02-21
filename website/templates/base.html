@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <a  href="https://icons8.com/icon/GtCWRmkr5I2V/robo">Robo</a> icon by <a href="https://icons8.com">Icons8</a> -->
-    <link rel="shortcut icon" href="imagens/icone logo Zap Selling.png" type="image/x-icon">
+    <link rel="styleesheet" href="{{ url_for('static', filename='style.css') }}" type="image/x-icon">
     <title>{% block title %}{% endblock %}</title>
 </head>
 <!-- Nota, qualquer atualização em css front resulta Control C + V cascata para todos HTML, para de esquecer por favor.  -->
@@ -331,61 +331,64 @@
         margin: auto;
     }
 
-    section#configurações p{
+    section#configurações p {
         padding: 15px;
         border-top: 1px solid gray;
         text-align: justify;
     }
-   .flex {
+
+    .flex {
         display: flex;
     }
-    .flex div{
+
+    .flex div {
         margin: 15px;
     }
-    .flex input{
+
+    .flex input {
         margin: 15px;
     }
 </style>
+
 <body>
     <header>
         <div id="menuTop">
             <nav>
                 <picture id="setasDuplas">
-                    <img src="imagens/setas-duplas-para-baixo.png" alt="">
+                    <img src="{{ url_for('static', filename='setas-duplas-para-baixo.png') }}" alt="">
                 </picture>
                 <ul>
                     <li>
-                        <a href="guia.html"
-                        >Ajuda
+                        <a href="/help">Ajuda
                         </a>
                     </li>
                     <li>
-                        <a href="membros.html">
-                            Comunidade                            
+                        <a href="/comunidade">
+                            Comunidade
                         </a>
                     </li>
                     <li>
-                        <a href="configurações.html">
+                        <a href="/configuracao">
                             Configuração
                         </a>
                     </li>
                     <li>
-                        <a href="heatingMat.html">
-                            Historico
+                        <a href="/exemplo2">
+                            Lixo Temporario
                         </a>
                     </li>
                     <li>
-                        <a href="templates.html">
+                        <a href="/funil">
                             Modelos
                         </a>
                     </li>
                     <li>
-                        <a href="perfil.html">
+                        <a href="/perfil">
                             Minha Conta
                         </a>
                     </li>
                     <li>
-                        <a href="logout">
+                        <a href="/logout">
                             Sair
                         </a>
                     </li>
@@ -393,36 +396,40 @@
                 </ul>
             </nav>
             <label id="input" for="">
-                <img src="imagens/lupa.png" alt="">
+                <img src="{{ url_for('static', filename='lupa.png') }}" alt="">
                 <input type="text" name="" id="" placeholder="Pesquisa">
             </label>
-            <a href="navegação.html">
+            <a href="/home">
                 <p>
-                    HOME
+                    inicio
                 </p>
             </a>
-            <a href="Gerenciador de Leads.html">
+            <a href="/auto_message">
                 <p>
-                    AUTOMAÇÃO DE MENSAGENS
+                    Upload de Arquivos
                 </p>
             </a>
-            <a
-                href="https://api.whatsapp.com/send?phone=5519986030166&text=TESTE%0ASuporte%20!!!%0ABom%20dia,%20%0ATenho%20um%20grave%20problema%20com%20a%20plataforma%20e%20preciso%20apoio%20imediato." target="_blank">
+            <a href="https://api.whatsapp.com/send?phone=5519986030166&text=TESTE%0ASuporte%20!!!%0ABom%20dia,%20%0ATenho%20um%20grave%20problema%20com%20a%20plataforma%20e%20preciso%20apoio%20imediato."
+                target="_blank">
                 <p>
                     SUPORTE
                 </p>
             </a>
+            
+            <a href="{{ url_for('views.excluir_conta') }}">Excluir conta</a>
+
         </div>
         <picture id="logoZapSelling">
-            <img src="imagens/logo Zap Selling.jpeg" alt="">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="">
         </picture>
     </header>
+    <div>{% block content %} {% endblock %}</div>
     <footer>
         <p>
             © 2023 - Todos os direitos reservados by - <a style="margin-left: 5px;"
                 href="https://www.instagram.com/ryanferreira_019/" target="_blank">RYAN
-                FERREIRA</a> & <a href="https://www.instagram.com/pk_digital_products/" target="_blank">PK DIGITAL PRODUCTS</a>
+                FERREIRA</a> & <a href="https://www.instagram.com/pk_digital_products/" target="_blank">PK DIGITAL
+                PRODUCTS</a>
         </p>
     </footer>
-    <div>{% block content %} {% endblock %}</div>
 </body>

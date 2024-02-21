@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Conteúdo do Arquivo: {{ arquivo.nome }}</h1>
+    {% if arquivo.tipo == 'png' or arquivo.tipo == 'jpg' or arquivo.tipo == 'jpeg' or arquivo.tipo == 'gif' %}
+        <img src="data:image/{{ arquivo.tipo }};base64,{{ arquivo.conteudo_base64 }}" alt="{{ arquivo.nome }}">
+    {% elif arquivo.tipo == 'mp3' %}
+        <audio controls>
+            <source src="data:audio/mp3;base64,{{ arquivo.conteudo_base64 }}" type="audio/mp3">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+    {% elif arquivo.tipo == 'mp4' %}
+        <video controls>
+            <source src="data:video/mp4;base64,{{ arquivo.conteudo_base64 }}" type="video/mp4">
+            Seu navegador não suporta o elemento de vídeo.
+        </video>
+    {% elif arquivo.tipo == 'doc' %}
+        <!-- Exibir arquivo DOC -->
+        <!-- Você pode adicionar um link de download para o arquivo DOC, se desejar -->
+        <a href="data:application/msword;base64,{{ arquivo.conteudo_base64 }}" download="{{ arquivo.nome }}">Baixar {{ arquivo.nome }}</a>
+    {% elif arquivo.tipo == 'xlsx' %}
+        <!-- Exibir arquivo XLSX -->
+        <!-- Você pode adicionar um link de download para o arquivo XLSX, se desejar -->
+        <a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{{ arquivo.conteudo_base64 }}" download="{{ arquivo.nome }}">Baixar {{ arquivo.nome }}</a>
+    {% elif arquivo.tipo == 'pdf' %}
+        <!-- Exibir arquivo PDF -->
+        <embed src="data:application/pdf;base64,{{ arquivo.conteudo_base64 }}" type="application/pdf" width="100%" height="600px" />
+    {% elif arquivo.tipo == 'txt' %}
+        <!-- Exibir arquivo de texto -->
+        <pre>{{ arquivo.conteudo_base64|unescape }}</pre>
+    {% else %}
+        <p>Tipo de arquivo não suportado.</p>
+    {% endif %}
+{% endblock %}

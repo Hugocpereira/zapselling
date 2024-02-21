@@ -1,0 +1,60 @@
+{% extends 'base.html' %} {% block title %} ZapSelling {% endblock%}
+
+{% block content %}
+
+
+
+
+<!-- Essa parte é esclusiva para o 'Guia', atenção na alteração de commit -->
+<section id="addAPage">
+    <h1 style="text-align: justify; background-color: rgb(14, 92, 11);">
+        Guia do usuário (Passo a passo de como utilizar a ferramenta)
+    </h1>
+    <h1>
+        Vai até o Menu e escolha a opção 'Gerenciador de Leads'.
+    </h1>
+    <h2>
+        Selecione uma das opções, alimente os gatilhos de resposta.
+    </h2>
+    <h2>
+        Agora é simples, começe a desenvolver o seu script automatizado da forma que prefierir.
+    </h2>
+    <h2>
+        <strong>Inicio</strong>
+    </h2>
+    <picture id="star">
+        <img src="{{ url_for('static', filename='comecar.png') }}" alt="">
+    </picture>
+    <picture id="clieteChega">
+        <img src="{{ url_for('static', filename='clienteChega.png') }}" alt="">
+    </picture>
+    <h2>
+        **1. ** Conheça seu público-alvo
+    </h2>
+    <p>
+        Antes de começar a vender, é importante conhecer bem o seu público-alvo.
+    </p>
+    <p>
+        Quem são as pessoas que você quer atingir?
+    </p>
+    <p>
+        Quais são suas necessidades e interesses? Quais são as suas dores e desejos?
+    </p>
+    <p>
+        Entendendo seu público-alvo, você poderá criar mensagens e ofertas mais direcionadas, aumentando as
+        chances de sucesso nas vendas.
+    </p>
+</section>
+<picture id="setasMultimidia">
+    <a href="#">
+        <img id="setaEsquedaMultimidia" src="{{ url_for('static', filename='duas-setas-para-a-esquerda (1).png') }}"
+            alt="">
+    </a>
+    <a href="guai2.html">
+        <img id="setaDireitaMultimidia" src="{{ url_for('static', filename='avanco-rapido.png') }}" alt="">
+    </a>
+</picture>
+</body>
+
+</html>
+{% endblock %}

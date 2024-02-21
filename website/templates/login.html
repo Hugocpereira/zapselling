@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <a  href="https://icons8.com/icon/GtCWRmkr5I2V/robo">Robo</a> icon by <a href="https://icons8.com">Icons8</a> -->
-    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
-    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="image/x-icon">
+
     <title>ZAP SELLING</title>
 </head>
 <style>
@@ -22,11 +22,11 @@
     }
 
     body {
-        background-color:#1b1717;
+        background-color: #1b1717;
         color: white;
     }
 
-    #logoZapSelling img {
+    #logo img {
         display: block;
         max-width: 200px;
         margin: auto;
@@ -118,7 +118,7 @@
         border-bottom: solid white 2px;
         height: 0vh;
     }
-    
+
     button#deVoltaAoTopo {
         position: fixed;
         bottom: 0;
@@ -208,15 +208,17 @@
         border-radius: 25px;
     }
 </style>
+
 <body>
     <header>
         <picture id="logo">
-            <img src="logo.png" alt="">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="">
         </picture>
         <h1>
             ZAP SELLING
         </h1>
     </header>
+
     <div class="container">
         <h2>
             Script <img
@@ -224,45 +226,41 @@
             de automação para quem vende muito usando a ferramenta <a href="https://web.whatsapp.com/"
                 target="_blank"><strong style="color: green;">whatsapp</strong></a>.
         </h2>
+        <h1>Login</h1>
         <form method="POST" action="{{ url_for('auth.login') }}">
             <label for="email">Email:</label>
             <input type="text" id="email" name="email" required>
-        
+
             <label for="senha1">Password:</label>
             <input type="password" id="senha1" name="senha1" required>
-        
+
             <button type="submit">Login</button>
         </form>
 
-            </div>
+    </div>
 
-        </form>
-        {% with messages = get_flashed_messages(with_categories=True) %}
-        {% if messages %}
-            {% for category, message in messages %}
-            {% if category == 'error' %}
-            <div class="alert alert danger alert-dismissible fade show" role="alert">    
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            {% else %}
-            <div class="alert alert danger alert-dismissible fade show" role="alert">    
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            {% endif %}   
-            {% endfor %}
-        {% endif %}
+    </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'error' %}
+    <div class="alert alert danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% else %}
+    <div class="alert alert danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     </div>
     <a href='signup'>
         <button>
             Cadatre-se
-        </button>
-    </a>
-    <a href='home'>
-        <button>
-            Painel de controle
         </button>
     </a>
     <footer>
@@ -273,5 +271,5 @@
         </p>
     </footer>
 </body>
-</html>
 
+</html>
