@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from .views import set_temporary_garbage, get_temporary_garbage
 
 
-
+ 
 auth = Blueprint('auth', __name__)
 
 

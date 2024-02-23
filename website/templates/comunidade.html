@@ -3,20 +3,11 @@
 {% block title %} ZapSelling {% endblock %}
 
 {% block content %}
-    <header>
-        <picture id="logoZapSelling">
-            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="">
-        </picture>
-    </header>
-    <!-- Área dos membros -->
-    <section id="comunidade">
-        <h2 id="topVH">
-            Área privada para membros, assine seu pacote para ter acesso!
-        </h2>
-        <img src="{{url_for('static', filename='equipe.png')}}" alt="">
-        <!-- Acho que seria legal 3 quadrados representando 3 lides -->
-    </section>
-    <h1 align="center">Compartilhe suas ideias aqui</h1>
+<header>
+
+</header>
+<!-- Área dos membros -->
+<section id="comunidade">
 
     <form method="POST">
         <textarea name="text" id="text" class="form-control"></textarea>
@@ -28,25 +19,26 @@
     <h1 align="center">Feed de notícias</h1>
     <div id="posts">
         {% for post in posts %}
-            <div class="card border-dark">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <a href="/posts/{{ post.user.nome }}">{{ post.user.nome }}</a>
-                    {% if user.id == post.author %}
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ url_for('views.delete_post', id=post.id) }}" class="dropdown-item">Excluir</a></li>
-                            </ul>
-                        </div>
-                    {% endif %}
+        <div class="card border-dark">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <a href="/posts/{{ post.user.nome }}">{{ post.user.nome }}</a>
+                {% if user.id == post.author %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('views.delete_post', id=post.id) }}" class="dropdown-item">Excluir</a>
+                        </li>
+                    </ul>
                 </div>
-                <div class="card-body">
-                    <div class="card-text">{{ post.text }}</div>
-                </div>
-                <div class="card-footer text-muted">{{ post.date_created }}</div>
+                {% endif %}
             </div>
-            <br>
+            <div class="card-body">
+                <div class="card-text">{{ post.text }}</div>
+            </div>
+            <div class="card-footer text-muted">{{ post.date_created }}</div>
+        </div>
+        <br>
         {% endfor %}
     </div>
-{% endblock %}
+    {% endblock %}
