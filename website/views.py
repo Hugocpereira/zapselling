@@ -18,7 +18,7 @@ BLIP_AUTH_KEY = 'your_blip_auth_key'
 @views.route('/home')
 @login_required
 def home():
-    return render_template('home.html', name=current_user.nome)
+    return render_template('index.html', name=current_user.nome)
 
 
 @views.route('/auto_message')
@@ -103,14 +103,9 @@ def clear_temporary_garbage():
         session.pop('temporary_garbage', None)
     session['last_activity'] = time.time()
     
-
 @views.route('/visualizar_arquivo/<int:arquivo_id>')
 def visualizar_arquivo(arquivo_id):
-    arquivos = Arquivo.query.filter(Arquivo.id == algum_id).all()
-    for arquivo in arquivos:
-        arquivo.conteudo_base64 = base64.b64encode(arquivo.conteudo).decode('utf-8')
-
-
+    arquivo = Arquivo.query.filter_by(id=arquivo_id).first()
     if arquivo:
         arquivo.conteudo_base64 = base64.b64encode(arquivo.conteudo).decode('utf-8')
         return render_template('visualizar_arquivo.html', arquivo=arquivo)
@@ -137,13 +132,13 @@ def delete_post(id):
 
     return redirect(url_for('views.comunidade'))
 
-@views.route('/apagar_arquivo/<int:id>')
+@views.route('/apagar_arquivo/<int:id>', methods=['GET', 'POST'])
 def delete_arquivo(id):
     arquivo = Arquivo.query.get(id)
 
     if not arquivo:
         flash('Arquivo não encontrado.', category='error')
-    elif current_user != arquivo.user: 
+    elif current_user.id != arquivo.user_id: 
         flash('Você não tem permissão para excluir este arquivo.', category='error')
     else:
         arquivo_excluido = ArquivoExcluido(nome=arquivo.nome, conteudo=arquivo.conteudo, tipo=arquivo.tipo, user_id=current_user.id)
