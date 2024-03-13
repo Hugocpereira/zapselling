@@ -12,7 +12,7 @@ import base64
 TEMPORARY_GARBAGE_TIMEOUT = 3000
 BLIP_API_URL = 'https://msging.net/messages'
 BLIP_AUTH_KEY = 'your_blip_auth_key'
-
+UPLOAD_FOLDER = '/caminho/para/upload'
 
 @views.route('/')
 @views.route('/home')
@@ -88,7 +88,7 @@ def set_temporary_garbage():
     for post in posts_excluidos:
         garbage_list.append(post)
     
-    return render_template('lixo.html', garbage_list=garbage_list)  # Renderize o template correto
+    return render_template('lixo.html', garbage_list=garbage_list)  
 
 def get_temporary_garbage():
     data = session.get('temporary_garbage')
@@ -114,7 +114,6 @@ def visualizar_arquivo(arquivo_id):
         return redirect(url_for('views.auto_message'))
 
 
-
 @views.route('/delete_post/<int:id>')
 def delete_post(id):
     post = Post.query.get(id)
@@ -132,7 +131,11 @@ def delete_post(id):
 
     return redirect(url_for('views.comunidade'))
 
+<<<<<<< HEAD
 @views.route('/apagar_arquivo/<int:id>', methods=['GET', 'POST'])
+=======
+@views.route('/apagar_arquivo/<int:id>', methods=['POST'])
+>>>>>>> 2a602136d9195f5639e88e021e4615bab8bc8491
 def delete_arquivo(id):
     arquivo = Arquivo.query.get(id)
 
@@ -178,15 +181,12 @@ def lixo_temporario():
 def funil():
     if request.method == 'POST':
         conteudo = request.form.get('conteudo')
-        arquivo = request.files.get('arquivo')
+        arquivo_id = request.form.get('arquivo')  
 
         if 'enviar' in request.form:
-            enviar_mensagem(conteudo, arquivo)
+            enviar_mensagem(conteudo, arquivo_id)
         elif 'salvar' in request.form:
-            salvar_mensagem(conteudo, arquivo)
-        elif 'excluir' in request.form:
-            mensagem_id = request.form.get('mensagem_id')
-            excluir_mensagem(mensagem_id)
+            salvar_mensagem(conteudo, request.files.get('arquivo'))
 
     arquivos = current_user.arquivos
     mensagens = Mensagem.query.filter_by(user_id=current_user.id).all()
@@ -252,15 +252,12 @@ def enviar_mensagem(conteudo, arquivo_id):
 
 
 def salvar_mensagem(conteudo, arquivo):
-    if arquivo:
-        nome_arquivo = secure_filename(arquivo.filename)
-        tipo_arquivo = nome_arquivo.split('.')[-1].lower()
-        conteudo_arquivo = arquivo.read()
-
+    caminho_arquivo = salvar_arquivo(arquivo)
+    
+    if caminho_arquivo:
         novo_arquivo = Arquivo(
-            nome=nome_arquivo,
-            conteudo=conteudo_arquivo,
-            tipo=tipo_arquivo,
+            nome=arquivo.filename,
+            caminho=caminho_arquivo,
             user_id=current_user.id
         )
         db.session.add(novo_arquivo)
@@ -283,6 +280,15 @@ def salvar_mensagem(conteudo, arquivo):
         db.session.commit()
         flash('Mensagem salva com sucesso.', category='success')
 
+def salvar_arquivo(arquivo):
+    if arquivo:
+        nome_arquivo = secure_filename(arquivo.filename)
+        caminho_arquivo = os.path.join(UPLOAD_FOLDER, nome_arquivo)
+        arquivo.save(caminho_arquivo)
+        return caminho_arquivo
+    return None
+
+
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in allowed_extensions
@@ -304,5 +310,10 @@ def excluir_conta():
         return redirect(url_for('auth.logout'))  # Redireciona para a rota de logout após excluir a conta
     else:
         return render_template('excluir_conta.html')  # Se a solicitação for GET, renderize o formulário de confirmação
+
+
+
+
+
 
 

@@ -5,8 +5,13 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from .views import set_temporary_garbage, get_temporary_garbage
 
+<<<<<<< HEAD
     
 
+=======
+
+ 
+>>>>>>> 2a602136d9195f5639e88e021e4615bab8bc8491
 auth = Blueprint('auth', __name__)
 
 

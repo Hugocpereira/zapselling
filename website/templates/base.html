@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <a  href="https://icons8.com/icon/GtCWRmkr5I2V/robo">Robo</a> icon by <a href="https://icons8.com">Icons8</a> -->
-    <link rel="styleesheet" href="{{ url_for('static', filename='style.css') }}" type="image/x-icon">
+    <link rel="styleesheet" href="{{ url_for('static', filename='style.css') }}" >
     <title>{% block title %}{% endblock %}</title>
 </head>
 <!-- Nota, qualquer atualização em css front resulta Control C + V cascata para todos HTML, para de esquecer por favor.  -->
@@ -363,6 +363,7 @@
                         </a>
                     </li>
                     <li>
+                        
                         <a href="/comunidade">
                             Comunidade
                         </a>
@@ -392,6 +393,7 @@
                             Sair
                         </a>
                     </li>
+                  
 
                 </ul>
             </nav>
@@ -415,7 +417,6 @@
                     SUPORTE
                 </p>
             </a>
-            
             <a href="{{ url_for('views.excluir_conta') }}">Excluir conta</a>
 
         </div>
@@ -433,3 +434,11 @@
         </p>
     </footer>
 </body>
+
+
+
+
+
+
+
+  
