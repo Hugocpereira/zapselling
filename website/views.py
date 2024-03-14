@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, session, url_for, abort
 from flask_login import login_required, current_user
-views = Blueprint('views', __name__)
 from .models import Post, User, Arquivo, ArquivoExcluido, PostExcluido, Mensagem
 from . import db
 from . import allowed_file
@@ -9,13 +8,15 @@ from werkzeug.utils import secure_filename
 import time 
 import base64
 
+views = Blueprint('views', __name__)
+
 TEMPORARY_GARBAGE_TIMEOUT = 3000
 BLIP_API_URL = 'https://msging.net/messages'
 BLIP_AUTH_KEY = 'your_blip_auth_key'
 UPLOAD_FOLDER = '/caminho/para/upload'
 
-@views.route('/')
-@views.route('/home')
+@views.route('/', methods=['GET', 'POST'])
+# @views.route('/home')
 @login_required
 def home():
     return render_template('index.html', name=current_user.nome)
@@ -131,11 +132,9 @@ def delete_post(id):
 
     return redirect(url_for('views.comunidade'))
 
-<<<<<<< HEAD
+
 @views.route('/apagar_arquivo/<int:id>', methods=['GET', 'POST'])
-=======
 @views.route('/apagar_arquivo/<int:id>', methods=['POST'])
->>>>>>> 2a602136d9195f5639e88e021e4615bab8bc8491
 def delete_arquivo(id):
     arquivo = Arquivo.query.get(id)
 
